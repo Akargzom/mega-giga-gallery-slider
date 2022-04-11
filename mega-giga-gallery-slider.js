@@ -4,6 +4,7 @@ jQuery(document).ready(function ($) {
     atps = $('.MGGS_gallery-slider').attr('data');
   }else{
     atp  = false;
+    atps = false;
   }
     $('.MGGS_gallery-slider').each(function() {
         $(this).slick({
