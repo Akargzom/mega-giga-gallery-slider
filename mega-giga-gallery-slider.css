@@ -1,0 +1,175 @@
+.MGGS {
+    margin-top: 3.57em;
+    margin-bottom: 4.29em;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+    max-width: 100%;
+}
+
+.MGGS .gallery {
+    margin: 0;
+}
+
+.MGGS_gallery-slider {
+    width: 44.3em;
+    max-width: 100%;
+    margin: 0 !important;
+    position: relative;
+}
+
+.MGGS .gallery-item {
+    margin: 0;
+    position: relative;
+}
+
+.MGGS_gallery-icon {
+    padding-top: 25.28em;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.MGGS .gallery-caption+.MGGS_gallery-icon {
+    filter: brightness(0.6);
+}
+
+.MGGS .gallery-caption {
+    height: 0;
+}
+
+.MGGS .slick-current>.gallery-caption {
+    bottom: 12%;
+    position: absolute;
+    display: block;
+    height: fit-content;
+    color: white;
+    z-index: 1;
+    left: 50%;
+    width: 80%;
+    max-height: 5em;
+    transform: translateX(-50%);
+    overflow: hidden;
+}
+
+.MGGS_panel-control {
+    position: relative;
+}
+
+.MGGS_panel-control .slick-dots {
+    list-style: none;
+    position: absolute;
+    bottom: 0.77em;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-height: 2em;
+    overflow: hidden;
+}
+
+.MGGS_panel-control .slick-dots li {
+    display: inline-block;
+    width: 1.92em;
+    height: 0.357em;
+    position: relative;
+    cursor: pointer;
+    border-radius: 0;
+}
+
+.MGGS_panel-control .slick-dots li:not(:first-child) {
+    margin-left: 0.43em;
+}
+
+.MGGS_panel-control .slick-dots button {
+    font-size: 0;
+    line-height: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    cursor: pointer;
+    color: transparent;
+    border: 0;
+    outline: none;
+    background: rgba(255, 255, 255, 0.2);
+    opacity: 1;
+    margin: 0 auto;
+    border-radius: 0;
+}
+
+.MGGS_panel-control .slick-dots .slick-active button {
+    background: #FB2651;
+}
+
+.MGGS_panel-control .slick-dots li::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: '';
+    height: 100%;
+    width: 0%;
+    transition: width .2s;
+    background: #FB2651;
+}
+
+.MGGS_panel-control .slick-dots li:hover::before {
+    width: 100%;
+}
+
+.MGGS_panel-control .slick-arrow {
+    position: absolute;
+    bottom: 0;
+    width: 2.86em;
+    height: 25.28em;
+    cursor: pointer;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% auto;
+}
+
+.MGGS_panel-control .next::before,
+.MGGS_panel-control .prev::before {
+    position: absolute;
+    top: 0;
+    content: '';
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    transition: opacity .6s;
+    background: #161616;
+    z-index: 2;
+}
+
+.MGGS_panel-control .next::before {
+    right: 0;
+}
+
+.MGGS_panel-control .prev::before {
+    left: 0;
+}
+
+.MGGS_panel-control .next:hover::before,
+.MGGS_panel-control .prev:hover::before {
+    opacity: 0.3;
+}
+
+.MGGS_panel-control .next {
+    right: 0;
+    background-image: url(./mggs_next.svg);
+
+}
+
+.MGGS_panel-control .prev {
+    left: 0;
+    background-image: url(./mggs_prev.svg);
+}
+@media (min-width: 651px){
+    .MGGS {
+        width: fit-content;
+    }
+}
+@media (max-width: 650px){
+    .MGGS {
+        width: 100vw;
+    }
+}
