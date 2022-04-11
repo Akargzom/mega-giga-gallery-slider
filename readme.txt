@@ -8,7 +8,7 @@ Requires PHP: 5.6
 License: GPLv3
 License URI: 
 
-Makin ur gallery giga-mega!!!
+Makin ur gallery mega-giga!!!
 
 == Description ==
 Selectively makes your galleries to sliders, with options to customize it as u wish. 
