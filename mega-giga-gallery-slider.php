@@ -8,7 +8,7 @@
  * @wordpress-plugin
  * Plugin Name:       Mega-giga-gallery-slider
  * Description:       Making your gallery mega-giga!!!
- * Version:           1.0
+ * Version:           1.1
  * Requires PHP:      5.6
  * Author:            Sashko
  */
