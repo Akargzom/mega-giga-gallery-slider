@@ -52,6 +52,10 @@
     overflow: hidden;
 }
 
+.MGGS .slick-current>.gallery-caption.t-mar{
+    bottom: 6%;
+} 
+
 .MGGS_panel-control {
     position: relative;
 }
@@ -124,7 +128,7 @@
     cursor: pointer;
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 100% auto;
+    background-size: 75% auto;
 }
 
 .MGGS_panel-control .next::before,
@@ -163,6 +167,47 @@
     left: 0;
     background-image: url(./mggs_prev.svg);
 }
+
+.MGGS_gallery-thumb.landscape {
+    padding-top: 5em;
+    width: 6.875em; 
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    position: relative;
+}
+
+.MGGS_gallery-thumbs .gallery-item{
+    margin-left: 0.425em;
+    margin-right: 0.425em;
+}
+
+.MGGS_gallery-thumb.landscape::before{
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    border: 2px solid #FB2651;
+    transition: opacity .3s;
+}
+
+.MGGS_gallery-thumb.landscape:hover::before{
+    opacity: 1;
+}
+
+.MGGS_gallery-thumbs{
+    margin-left: 0.425em;
+    margin-top: 0.95em;
+}
+
+.slick-current.slick-active .MGGS_gallery-thumb.landscape{
+    border: 2px solid #FB2651;
+}
+
 @media (min-width: 651px){
     .MGGS {
         width: fit-content;
