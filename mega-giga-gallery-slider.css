@@ -217,4 +217,9 @@
     .MGGS {
         width: 100vw;
     }
+
+    .MGGS_gallery-thumbs{
+        margin-left: 0.95em;
+        margin-top: 0.95em;
+    }
 }
