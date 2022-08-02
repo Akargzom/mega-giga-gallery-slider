@@ -6,10 +6,13 @@ jQuery(document).ready(function ($) {
     atp  = false;
     atps = false;
   }
-  let thumbNum;
+  let thumbNum,
+  tabThumbNum,
+  mobThumbNum;
   if($('.MGGS_gallery-slider').hasClass('thumb')){
     thumbNum = $('.MGGS_gallery-slider').attr('data-2');
-    console.log(thumbNum);
+    tabThumbNum = $('.MGGS_gallery-slider').attr('data-3');
+    mobThumbNum = $('.MGGS_gallery-slider').attr('data-4');
     $('.MGGS_gallery-thumbs').css('width', $('.MGGS_gallery-slider').width() + '' );
     $('.MGGS_gallery-slider').each(function() {
       $(this).slick({
@@ -21,23 +24,40 @@ jQuery(document).ready(function ($) {
         prevArrow: $(this).next('.MGGS_panel-control').find('.prev'),
         nextArrow: $(this).next('.MGGS_panel-control').find('.next'),
         dots: false,
-        // appendDots: $(this).next('.MGGS_panel-control').find('.slider-dots'),
         responsive: [{
           breakpoint: 651,
           settings: {
-            dots: false,
+            arrows: false,
           }
         }]
     });
     });
     let inf,
+    tabInf,
+    tabCm,
+    mobInf,
+    mobCm,
     cm;
-    if ($('.MGGS_gallery-icon.landscape').lenght<8){
+    if ($('.MGGS_gallery-icon.landscape').lenght <= thumbNum){
       inf = false;
       cm = true;
     }else{
       inf = true;
       cm = false;
+    }
+    if ($('.MGGS_gallery-icon.landscape').lenght <= tabThumbNum){
+      tabInf = false;
+      tabCm = true;
+    }else{
+      tabInf = true;
+      tabCm = false;
+    }
+    if ($('.MGGS_gallery-icon.landscape').lenght <= mobThumbNum){
+      mobInf = false;
+      mobCm = true;
+    }else{
+      mobInf = true;
+      mobCm = false;
     }
     $('.MGGS_gallery-thumbs').each(function() {
       $(this).slick({
@@ -56,17 +76,17 @@ jQuery(document).ready(function ($) {
         responsive: [{
           breakpoint: 992,
           settings: {
-              slidesToShow: 4,
-              arrows: false,
+              slidesToShow: tabThumbNum,
+              centerMode: tabCm,
+              infinite: tabInf
           }
       },
       {
       breakpoint: 650,
       settings: {
-          slidesToShow: 3,
-          arrows: false,
-          centerMode: true,
-          centerPadding: '0px',
+        slidesToShow: mobThumbNum,
+        centerMode: mobCm,
+        infinite: mobInf
       }
   }]
     });
@@ -88,6 +108,12 @@ jQuery(document).ready(function ($) {
             breakpoint: 651,
             settings: {
               dots: false,
+              responsive: [{
+                breakpoint: 651,
+                settings: {
+                  arrows: false,
+                }
+              }]
             }
           }]
       });
