@@ -58,6 +58,8 @@ function MGGS_init_edit_global_content_example()
         'MGGS_check_gutenberg' => 'Check it if you use Gutenberg',
         'MGGS_check_thumbnails' => 'Thumbnails',
         'MGGS_nmb_thumbnails' => 'How many thumbnails',
+        'MGGS_nmb_t_thumbnails' => 'How many tablet thumbnails',
+        'MGGS_nmb_m_thumbnails' => 'How many mobile thumbnails',
         'MGGS_select_columns' => 'How many gallery colunms wanna be slidered?',
     ];
     $vals = get_option('slide_data');
@@ -103,6 +105,14 @@ if (get_option('slide_data')['MGGS_check_gutenberg'] == 1) {
             $thumbs = get_option('slide_data')['MGGS_nmb_thumbnails'];
         else
             $thumbs = 5;
+            if (get_option('slide_data')['MGGS_nmb_t_thumbnails'])
+            $t_thumbs = get_option('slide_data')['MGGS_nmb_t_thumbnails'];
+        else
+            $t_thumbs = 4;
+            if (get_option('slide_data')['MGGS_nmb_m_thumbnails'])
+            $m_thumbs = get_option('slide_data')['MGGS_nmb_m_thumbnails'];
+        else
+            $m_thumbs = 3;
         $mar = '';
         if ($thumb == ' thumb')
             $mar = ' t-mar';
@@ -124,7 +134,7 @@ if (get_option('slide_data')['MGGS_check_gutenberg'] == 1) {
                     $clmn_clss = ' auto';
                 }
                 $output = '';
-                $gallery_div = "<div class='MGGS'><div class='MGGS_gallery-slider" . $clmn_clss . $thumb . "' data='" . $atps . "' data-2='" . $thumbs . "''>";
+                $gallery_div = "<div class='MGGS'><div class='MGGS_gallery-slider" . $clmn_clss . $thumb . "' data='" . $atps . "' data-2='" . $thumbs . "'' data-3='" . $t_thumbs . "'' data-4='" . $m_thumbs . "''>";
                 $output = apply_filters('gallery_style', $gallery_div);
                 foreach ($ids as $id => $attachment) {
                     $output .= "<div class='gallery-item'>";
@@ -304,8 +314,16 @@ if (get_option('slide_data')['MGGS_check_gutenberg'] == 1) {
             $mar = '';
             if ($thumb == ' thumb')
                 $mar = ' t-mar';
+                if (get_option('slide_data')['MGGS_nmb_t_thumbnails'])
+                $t_thumbs = get_option('slide_data')['MGGS_nmb_t_thumbnails'];
+            else
+                $t_thumbs = 4;
+                if (get_option('slide_data')['MGGS_nmb_m_thumbnails'])
+                $m_thumbs = get_option('slide_data')['MGGS_nmb_m_thumbnails'];
+            else
+                $m_thumbs = 3;
             $size_class  = sanitize_html_class(is_array($atts['size']) ? implode('x', $atts['size']) : $atts['size']);
-            $gallery_div = "<div class='MGGS'><div id='$selector' class='gallery galleryid-{$id} gallery-columns-{$columns} gallery-size-{$size_class} MGGS_gallery-slider" . $clmn_clss . $thumb . "' data = '" . $atps . "' data-2='" . $thumbs . "'>";
+            $gallery_div = "<div class='MGGS'><div id='$selector' class='gallery galleryid-{$id} gallery-columns-{$columns} gallery-size-{$size_class} MGGS_gallery-slider" . $clmn_clss . $thumb . "' data = '" . $atps . "' data-2='" . $thumbs . "'data-3='" . $t_thumbs . "'' data-4='" . $m_thumbs . "''>";
             $output = apply_filters('gallery_style', $gallery_div);
             $i = 0;
 
