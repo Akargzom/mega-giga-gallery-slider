@@ -9,7 +9,12 @@
 
 .MGGS .gallery {
     margin: 0;
+    display: block;
 }
+
+.MGGS .wp-caption-text.gallery-caption{
+    font-size: 1em;
+} 
 
 .MGGS_gallery-slider {
     width: 44.3em;
