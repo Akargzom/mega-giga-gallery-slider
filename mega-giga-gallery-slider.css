@@ -213,6 +213,10 @@
     border: 2px solid #FB2651;
 }
 
+.MGGS_gallery-thumbs{
+    width: 100% !important;
+}
+
 @media (min-width: 651px){
     .MGGS {
         width: fit-content;
