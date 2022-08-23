@@ -6,9 +6,11 @@ jQuery(document).ready(function ($) {
     atp  = false;
     atps = false;
   }
+  
   let thumbNum,
-  tabThumbNum,
-  mobThumbNum;
+    tabThumbNum,
+    mobThumbNum;
+  
   if($('.MGGS_gallery-slider').hasClass('thumb')){
     thumbNum = $('.MGGS_gallery-slider').attr('data-2');
     tabThumbNum = $('.MGGS_gallery-slider').attr('data-3');
@@ -30,14 +32,14 @@ jQuery(document).ready(function ($) {
             arrows: false,
           }
         }]
-    });
+      });
     });
     let inf,
-    tabInf,
-    tabCm,
-    mobInf,
-    mobCm,
-    cm;
+      tabInf,
+      tabCm,
+      mobInf,
+      mobCm,
+      cm;
     if ($('.MGGS_gallery-icon.landscape').lenght <= thumbNum){
       inf = false;
       cm = true;
@@ -76,47 +78,40 @@ jQuery(document).ready(function ($) {
         responsive: [{
           breakpoint: 992,
           settings: {
-              slidesToShow: tabThumbNum,
-              centerMode: tabCm,
-              infinite: tabInf
+            slidesToShow: tabThumbNum,
+            centerMode: tabCm,
+            infinite: tabInf
           }
-      },
-      {
-      breakpoint: 650,
-      settings: {
-        slidesToShow: mobThumbNum,
-        centerMode: mobCm,
-        infinite: mobInf
-      }
-  }]
-    });
-});
-  }
-  else{
-    $('.MGGS_gallery-slider').each(function() {
-        $(this).slick({
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          autoplay: atp,
-          autoplaySpeed: atps,
-          prevArrow: $(this).next('.MGGS_panel-control').find('.prev'),
-          nextArrow: $(this).next('.MGGS_panel-control').find('.next'),
-          dots: true,
-          arrows: true,
-          appendDots: $(this).next('.MGGS_panel-control').find('.slider-dots'),
-          responsive: [{
-            breakpoint: 651,
-            settings: {
-              dots: false,
-              responsive: [{
-                breakpoint: 651,
-                settings: {
-                  arrows: false,
-                }
-              }]
-            }
-          }]
+        }, {
+          breakpoint: 650,
+          settings: {
+            slidesToShow: mobThumbNum,
+            centerMode: mobCm,
+            infinite: mobInf
+          }
+        }]
       });
-  });
-}
+    });
+  }else{
+    $('.MGGS_gallery-slider').each(function() {
+      $(this).slick({
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        autoplay: atp,
+        autoplaySpeed: atps,
+        prevArrow: $(this).next('.MGGS_panel-control').find('.prev'),
+        nextArrow: $(this).next('.MGGS_panel-control').find('.next'),
+        dots: true,
+        arrows: true,
+        appendDots: $(this).next('.MGGS_panel-control').find('.slider-dots'),
+        responsive: [{
+          breakpoint: 651,
+          settings: {
+            dots: false,
+            arrows: false,
+          }
+        }]
+      });
+    });
+  }
 });
