@@ -17,7 +17,7 @@ add_action('wp_enqueue_scripts', function () {
     wp_enqueue_script('jquery');
     wp_enqueue_style('gs_style', plugins_url('mega-giga-gallery-slider.css', __FILE__));
     wp_enqueue_script('gs_js', plugins_url('mega-giga-gallery-slider.js', __FILE__));
-    if (isset(get_option('slide_data')['MGGS_check_slick']) && get_option('slide_data')['MGGS_check_slick'] != 1) {
+    if (get_option('slide_data')['MGGS_check_slick'] !== 1) {
         wp_enqueue_script('slick_js', plugins_url('slick.min.js', __FILE__));
         wp_enqueue_style('slick_css', plugins_url('slick.css', __FILE__));
     }
@@ -95,34 +95,33 @@ function MGGS_get_fields_example($args)
         echo '<input name="' . esc_attr($name_option) . '[' . esc_attr($field_name) . ']" type="number" id="' . esc_attr($field_name) . '" value="' . esc_attr($value) . '" class="regular-text" />';
     }
 }
-$opts = get_option('slide_data');
-if (isset($opts['MGGS_check_gutenberg']) && $opts['MGGS_check_gutenberg'] == 1) {
+if (get_option('slide_data')['MGGS_check_gutenberg'] == 1) {
     add_filter('render_block', function ($block_content, $block) {
-        if (isset(get_option('slide_data')['MGGS_check_thumbnails']) && get_option('slide_data')['MGGS_check_thumbnails'] == 1)
+        if (get_option('slide_data')['MGGS_check_thumbnails'] == 1)
             $thumb = ' thumb';
         else
             $thumb = '';
-        if (isset(get_option('slide_data')['MGGS_nmb_thumbnails']) && get_option('slide_data')['MGGS_nmb_thumbnails'])
+        if (get_option('slide_data')['MGGS_nmb_thumbnails'])
             $thumbs = get_option('slide_data')['MGGS_nmb_thumbnails'];
         else
             $thumbs = 5;
-            if (isset(get_option('slide_data')['MGGS_nmb_t_thumbnails']) && get_option('slide_data')['MGGS_nmb_t_thumbnails'])
+            if (get_option('slide_data')['MGGS_nmb_t_thumbnails'])
             $t_thumbs = get_option('slide_data')['MGGS_nmb_t_thumbnails'];
         else
             $t_thumbs = 4;
-            if (isset(get_option('slide_data')['MGGS_nmb_n_thumbnails']) && get_option('slide_data')['MGGS_nmb_m_thumbnails'])
+            if (get_option('slide_data')['MGGS_nmb_m_thumbnails'])
             $m_thumbs = get_option('slide_data')['MGGS_nmb_m_thumbnails'];
         else
             $m_thumbs = 3;
         $mar = '';
         if ($thumb == ' thumb')
             $mar = ' t-mar';
-            if (isset(get_option('slide_data')['MGGS_select_columns']) && get_option('slide_data')['MGGS_select_columns']) {
+            if (get_option('slide_data')['MGGS_select_columns']) {
                 $clmn = get_option('slide_data')['MGGS_select_columns'];
             } else {
                 $clmn = 1;
             }
-            if (isset(get_option('slide_data')['MGGS_nmb_autospeed']) && get_option('slide_data')['MGGS_nmb_autospeed']) {
+            if (get_option('slide_data')['MGGS_nmb_autospeed']) {
                 $atps = get_option('slide_data')['MGGS_nmb_autospeed'];
             } else {
                 $atps = 3000;
@@ -131,7 +130,7 @@ if (isset($opts['MGGS_check_gutenberg']) && $opts['MGGS_check_gutenberg'] == 1) 
                 $ids = $block['attrs']['ids'] ?? array_column(array_column($block['innerBlocks'], 'attrs'), 'id');
                 $size = $block['attrs']['sizeSlug'];
                 $clmn_clss = '';
-                if (isset(get_option('slide_data')['MGGS_check_autoscroll']) && get_option('slide_data')['MGGS_check_autoscroll'] == 1) {
+                if (get_option('slide_data')['MGGS_check_autoscroll'] == 1) {
                     $clmn_clss = ' auto';
                 }
                 $output = '';
@@ -290,36 +289,36 @@ if (isset($opts['MGGS_check_gutenberg']) && $opts['MGGS_check_gutenberg'] == 1) 
         $selector = "gallery-{$instance}";
 
         $gallery_style = '';
-        if (isset(get_option('slide_data')['MGGS_select_columns']) && get_option('slide_data')['MGGS_select_columns']) {
+        if (get_option('slide_data')['MGGS_select_columns']) {
             $clmn = get_option('slide_data')['MGGS_select_columns'];
         } else {
             $clmn = 1;
         }
-        if (isset(get_option('slide_data')['MGGS_nmb_autospeed']) && get_option('slide_data')['MGGS_nmb_autospeed'])
+        if (get_option('slide_data')['MGGS_nmb_autospeed'])
             $atps = get_option('slide_data')['MGGS_nmb_autospeed'];
         else
             $atps = 3000;
         if ($atts['columns'] == $clmn) {
             $clmn_clss = '';
-            if (isset(get_option('slide_data')['MGGS_check_autoscroll']) && get_option('slide_data')['MGGS_check_autoscroll'] == 1) {
+            if (get_option('slide_data')['MGGS_check_autoscroll'] == 1) {
                 $clmn_clss = ' auto';
             }
-            if (isset(get_option('slide_data')['MGGS_check_thumbnails']) && get_option('slide_data')['MGGS_check_thumbnails'] == 1)
+            if (get_option('slide_data')['MGGS_check_thumbnails'] == 1)
                 $thumb = ' thumb';
             else
                 $thumb = '';
-            if (isset(get_option('slide_data')['MGGS_nmb_thumbnails']) && get_option('slide_data')['MGGS_nmb_thumbnails'])
+            if (get_option('slide_data')['MGGS_nmb_thumbnails'])
                 $thumbs = get_option('slide_data')['MGGS_nmb_thumbnails'];
             else
                 $thumbs = 5;
             $mar = '';
             if ($thumb == ' thumb')
                 $mar = ' t-mar';
-                if (isset(get_option('slide_data')['MGGS_nmb_t_thumbnails']) && get_option('slide_data')['MGGS_nmb_t_thumbnails'])
+                if (get_option('slide_data')['MGGS_nmb_t_thumbnails'])
                 $t_thumbs = get_option('slide_data')['MGGS_nmb_t_thumbnails'];
             else
                 $t_thumbs = 4;
-                if (isset(get_option('slide_data')['MGGS_nmb_n_thumbnails']) && get_option('slide_data')['MGGS_nmb_m_thumbnails'])
+                if (get_option('slide_data')['MGGS_nmb_m_thumbnails'])
                 $m_thumbs = get_option('slide_data')['MGGS_nmb_m_thumbnails'];
             else
                 $m_thumbs = 3;
@@ -352,8 +351,16 @@ if (isset($opts['MGGS_check_gutenberg']) && $opts['MGGS_check_gutenberg'] == 1) 
                     " . wptexturize($attachment->post_excerpt) . "
                     </div>";
                 }
-
-                $output .= "<div class='MGGS_gallery-icon landscape' style='background-image:url(" . wp_get_attachment_image_url($id, $atts['size']) . ");'></div>";
+                if( isset( $atts['link'] ) && $atts['link'] == 'file' ){
+                    if ( $atts['size'] == 'full' )
+                        $src1 = $src2 = wp_get_attachment_image_url( $id, 'full' );
+                    else {
+                        $src1 = wp_get_attachment_image_url( $id, 'full' );
+                        $src2 = wp_get_attachment_image_url( $id, $atts['size'] );
+                    }
+                    $output .= "<div class='MGGS_gallery-icon landscape' style='background-image:url(" .$src1. ");'><a href='" .$src2. "'></a></div>";
+                } else
+                    $output .= "<div class='MGGS_gallery-icon landscape' style='background-image:url(" . wp_get_attachment_image_url($id, $atts['size']) . ");'></div>";
 
                 $output .= "</div>";
             }
