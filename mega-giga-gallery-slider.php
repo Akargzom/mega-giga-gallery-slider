@@ -15,7 +15,7 @@
 
 add_action('wp_enqueue_scripts', function () {
     wp_enqueue_script('jquery');
-    wp_enqueue_style('gs_style', plugins_url('mega-giga-gallery-slider.css', __FILE__));
+    wp_enqueue_style('gs_style', plugins_url('mega-giga-gallery-slider.css', __FILE__, array(), '2.1', 'all'));
     wp_enqueue_script('gs_js', plugins_url('mega-giga-gallery-slider.js', __FILE__));
     if (get_option('slide_data')['MGGS_check_slick'] !== 1) {
         wp_enqueue_script('slick_js', plugins_url('slick.min.js', __FILE__));
