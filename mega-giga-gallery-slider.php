@@ -8,7 +8,7 @@
  * @wordpress-plugin
  * Plugin Name:       Mega-giga-gallery-slider
  * Description:       Making your gallery mega-giga!!!
- * Version:           2.0
+ * Version:           2.1
  * Requires PHP:      5.6
  * Author:            Sashko
  */
@@ -105,65 +105,64 @@ if (get_option('slide_data')['MGGS_check_gutenberg'] == 1) {
             $thumbs = get_option('slide_data')['MGGS_nmb_thumbnails'];
         else
             $thumbs = 5;
-            if (get_option('slide_data')['MGGS_nmb_t_thumbnails'])
+        if (get_option('slide_data')['MGGS_nmb_t_thumbnails'])
             $t_thumbs = get_option('slide_data')['MGGS_nmb_t_thumbnails'];
         else
             $t_thumbs = 4;
-            if (get_option('slide_data')['MGGS_nmb_m_thumbnails'])
+        if (get_option('slide_data')['MGGS_nmb_m_thumbnails'])
             $m_thumbs = get_option('slide_data')['MGGS_nmb_m_thumbnails'];
         else
             $m_thumbs = 3;
         $mar = '';
         if ($thumb == ' thumb')
             $mar = ' t-mar';
-            if (get_option('slide_data')['MGGS_select_columns']) {
-                $clmn = get_option('slide_data')['MGGS_select_columns'];
-            } else {
-                $clmn = 1;
+        if (get_option('slide_data')['MGGS_select_columns']) {
+            $clmn = get_option('slide_data')['MGGS_select_columns'];
+        } else {
+            $clmn = 1;
+        }
+        if (get_option('slide_data')['MGGS_nmb_autospeed']) {
+            $atps = get_option('slide_data')['MGGS_nmb_autospeed'];
+        } else {
+            $atps = 3000;
+        }
+        if ('core/gallery' == $block['blockName'] && isset($block['attrs']['columns']) && $block['attrs']['columns'] == $clmn) {
+            $ids = $block['attrs']['ids'] ?? array_column(array_column($block['innerBlocks'], 'attrs'), 'id');
+            $size = $block['attrs']['sizeSlug'];
+            $clmn_clss = '';
+            if (get_option('slide_data')['MGGS_check_autoscroll'] == 1) {
+                $clmn_clss = ' auto';
             }
-            if (get_option('slide_data')['MGGS_nmb_autospeed']) {
-                $atps = get_option('slide_data')['MGGS_nmb_autospeed'];
-            } else {
-                $atps = 3000;
-            }
-            if ('core/gallery' == $block['blockName'] && isset($block['attrs']['columns']) && $block['attrs']['columns'] == $clmn) {
-                $ids = $block['attrs']['ids'] ?? array_column(array_column($block['innerBlocks'], 'attrs'), 'id');
-                $size = $block['attrs']['sizeSlug'];
-                $clmn_clss = '';
-                if (get_option('slide_data')['MGGS_check_autoscroll'] == 1) {
-                    $clmn_clss = ' auto';
-                }
-                $output = '';
-                $gallery_div = "<div class='MGGS'><div class='MGGS_gallery-slider" . $clmn_clss . $thumb . "' data='" . $atps . "' data-2='" . $thumbs . "'' data-3='" . $t_thumbs . "'' data-4='" . $m_thumbs . "''>";
-                $output = apply_filters('gallery_style', $gallery_div);
-                foreach ($ids as $id => $attachment) {
-                    $output .= "<div class='gallery-item'>";
-                    if (wp_get_attachment_caption($attachment->post_excerptt)) {
-                        $output .= "
+            $output = '';
+            $gallery_div = "<div class='MGGS'><div class='MGGS_gallery-slider" . $clmn_clss . $thumb . "' data='" . $atps . "' data-2='" . $thumbs . "'' data-3='" . $t_thumbs . "'' data-4='" . $m_thumbs . "''>";
+            $output = apply_filters('gallery_style', $gallery_div);
+            foreach ($ids as $id => $attachment) {
+                $output .= "<div class='gallery-item'>";
+                if (wp_get_attachment_caption($attachment->post_excerptt)) {
+                    $output .= "
                             <div class='wp-caption-text gallery-caption " . $mar . "'>
                             " . wptexturize(wp_get_attachment_caption($attachment->post_excerpt)) . "
                             </div>";
-                    }
-                    $output .= "<div class='MGGS_gallery-icon landscape' style='background-image:url(" . wp_get_attachment_image_url($attachment, $size) . ");'></div></div>";
                 }
-                $output .= '</div><div class="MGGS_panel-control">
+                $output .= "<div class='MGGS_gallery-icon landscape' style='background-image:url(" . wp_get_attachment_image_url($attachment, $size) . ");'></div></div>";
+            }
+            $output .= '</div><div class="MGGS_panel-control">
                         <div class="slider-dots"></div>
                         <div class="prev" style="background: "></div>
                         <div class="next"></div></div>';
-                        if ($thumb == ' thumb') {
-                            $output .= "<div class='MGGS_gallery-thumbs'>";
-                            foreach ($ids as $id => $attachment) {
-                                $output .= "<div class='gallery-item'>";
-                                $output .= "<div class='MGGS_gallery-thumb landscape' style='background-image:url(" . wp_get_attachment_image_url($attachment, $size) . ");'></div>";
-                                $output .= '</div>';
-                            }
-                            
-                        }
-                        $output .= '</div>';
-                return $output;
-            } else {
-                return $block_content;
+            if ($thumb == ' thumb') {
+                $output .= "<div class='MGGS_gallery-thumbs'>";
+                foreach ($ids as $id => $attachment) {
+                    $output .= "<div class='gallery-item'>";
+                    $output .= "<div class='MGGS_gallery-thumb landscape' style='background-image:url(" . wp_get_attachment_image_url($attachment, $size) . ");'></div>";
+                    $output .= '</div>';
+                }
             }
+            $output .= '</div>';
+            return $output;
+        } else {
+            return $block_content;
+        }
     }, 10, 2);
 } else {
     add_filter('post_gallery', 'MGGS_my_gallery_output', 10, 2);
@@ -314,11 +313,11 @@ if (get_option('slide_data')['MGGS_check_gutenberg'] == 1) {
             $mar = '';
             if ($thumb == ' thumb')
                 $mar = ' t-mar';
-                if (get_option('slide_data')['MGGS_nmb_t_thumbnails'])
+            if (get_option('slide_data')['MGGS_nmb_t_thumbnails'])
                 $t_thumbs = get_option('slide_data')['MGGS_nmb_t_thumbnails'];
             else
                 $t_thumbs = 4;
-                if (get_option('slide_data')['MGGS_nmb_m_thumbnails'])
+            if (get_option('slide_data')['MGGS_nmb_m_thumbnails'])
                 $m_thumbs = get_option('slide_data')['MGGS_nmb_m_thumbnails'];
             else
                 $m_thumbs = 3;
@@ -345,20 +344,22 @@ if (get_option('slide_data')['MGGS_check_gutenberg'] == 1) {
                     $orientation = ($image_meta['height'] > $image_meta['width']) ? 'portrait' : 'landscape';
                 }
                 $output .= "<div class='gallery-item'>";
+                $titleImage = '';
                 if ($captiontag && trim($attachment->post_excerpt)) {
+                    $titleImage = wptexturize($attachment->post_excerpt);
                     $output .= "
                     <div class='wp-caption-text gallery-caption" . $mar . "' id='$selector-$id'>
                     " . wptexturize($attachment->post_excerpt) . "
                     </div>";
                 }
-                if( isset( $atts['link'] ) && $atts['link'] == 'file' ){
-                    if ( $atts['size'] == 'full' )
-                        $src1 = $src2 = wp_get_attachment_image_url( $id, 'full' );
+                if (isset($atts['link']) && $atts['link'] == 'file') {
+                    if ($atts['size'] == 'full')
+                        $src1 = $src2 = wp_get_attachment_image_url($id, 'full');
                     else {
-                        $src1 = wp_get_attachment_image_url( $id, 'full' );
-                        $src2 = wp_get_attachment_image_url( $id, $atts['size'] );
+                        $src1 = wp_get_attachment_image_url($id, 'full');
+                        $src2 = wp_get_attachment_image_url($id, $atts['size']);
                     }
-                    $output .= "<div class='MGGS_gallery-icon landscape' style='background-image:url(" .$src1. ");'><a href='" .$src2. "'></a></div>";
+                    $output .= "<div class='MGGS_gallery-icon landscape' style='background-image:url(" . $src1 . ");'><a" . (!empty($titleImage) ? ' title="' . $titleImage . '"' : '') . " href='" . $src2 . "'></a></div>";
                 } else
                     $output .= "<div class='MGGS_gallery-icon landscape' style='background-image:url(" . wp_get_attachment_image_url($id, $atts['size']) . ");'></div>";
 

@@ -3,7 +3,7 @@ Contributors: Sashko Ilyashenko
 Tags: gallery slider
 Requires at least: 4.0
 Tested up to: 6.8.2
-Stable tag: 2.0
+Stable tag: 2.1
 Requires PHP: 5.6
 License: GPLv3
 License URI: 
