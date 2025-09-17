@@ -17,7 +17,8 @@ add_action('wp_enqueue_scripts', function () {
     wp_enqueue_script('jquery');
     wp_enqueue_style('gs_style', plugins_url('mega-giga-gallery-slider.css', __FILE__, array(), '2.1', 'all'));
     wp_enqueue_script('gs_js', plugins_url('mega-giga-gallery-slider.js', __FILE__));
-    if (get_option('slide_data')['MGGS_check_slick'] !== 1) {
+    $settings = get_option('slide_data');
+    if (isset($settings['MGGS_check_slick']) && $settings['MGGS_check_slick'] !== 1) {
         wp_enqueue_script('slick_js', plugins_url('slick.min.js', __FILE__));
         wp_enqueue_style('slick_css', plugins_url('slick.css', __FILE__));
     }
@@ -95,34 +96,36 @@ function MGGS_get_fields_example($args)
         echo '<input name="' . esc_attr($name_option) . '[' . esc_attr($field_name) . ']" type="number" id="' . esc_attr($field_name) . '" value="' . esc_attr($value) . '" class="regular-text" />';
     }
 }
-if (get_option('slide_data')['MGGS_check_gutenberg'] == 1) {
+$settings = get_option('slide_data');
+if (isset($settings['MGGS_check_gutenberg']) && $settings['MGGS_check_gutenberg'] == 1) {
     add_filter('render_block', function ($block_content, $block) {
-        if (get_option('slide_data')['MGGS_check_thumbnails'] == 1)
+        $settings = get_option('slide_data');
+        if (isset($settings['MGGS_check_thumbnails']) && $settings['MGGS_check_thumbnails'] == 1)
             $thumb = ' thumb';
         else
             $thumb = '';
-        if (get_option('slide_data')['MGGS_nmb_thumbnails'])
-            $thumbs = get_option('slide_data')['MGGS_nmb_thumbnails'];
+        if (isset($settings['MGGS_nmb_thumbnails']) && !empty($settings['MGGS_nmb_thumbnails']))
+            $thumbs = $settings['MGGS_nmb_thumbnails'];
         else
             $thumbs = 5;
-        if (get_option('slide_data')['MGGS_nmb_t_thumbnails'])
-            $t_thumbs = get_option('slide_data')['MGGS_nmb_t_thumbnails'];
+        if (isset($settings['MGGS_nmb_t_thumbnails']) && !empty($settings['MGGS_nmb_t_thumbnails']))
+            $t_thumbs = $settings['MGGS_nmb_t_thumbnails'];
         else
             $t_thumbs = 4;
-        if (get_option('slide_data')['MGGS_nmb_m_thumbnails'])
-            $m_thumbs = get_option('slide_data')['MGGS_nmb_m_thumbnails'];
+        if (isset($settings['MGGS_nmb_m_thumbnails']) && !empty($settings['MGGS_nmb_m_thumbnails']))
+            $m_thumbs = $settings['MGGS_nmb_m_thumbnails'];
         else
             $m_thumbs = 3;
         $mar = '';
         if ($thumb == ' thumb')
             $mar = ' t-mar';
-        if (get_option('slide_data')['MGGS_select_columns']) {
-            $clmn = get_option('slide_data')['MGGS_select_columns'];
+        if (isset($settings['MGGS_select_columns']) && !empty($settings['MGGS_select_columns'])) {
+            $clmn = $settings['MGGS_select_columns'];
         } else {
             $clmn = 1;
         }
-        if (get_option('slide_data')['MGGS_nmb_autospeed']) {
-            $atps = get_option('slide_data')['MGGS_nmb_autospeed'];
+        if (isset($settings['MGGS_nmb_autospeed']) && !empty($settings['MGGS_nmb_autospeed'])) {
+            $atps = $settings['MGGS_nmb_autospeed'];
         } else {
             $atps = 3000;
         }
@@ -130,7 +133,7 @@ if (get_option('slide_data')['MGGS_check_gutenberg'] == 1) {
             $ids = $block['attrs']['ids'] ?? array_column(array_column($block['innerBlocks'], 'attrs'), 'id');
             $size = $block['attrs']['sizeSlug'];
             $clmn_clss = '';
-            if (get_option('slide_data')['MGGS_check_autoscroll'] == 1) {
+            if (isset($settings['MGGS_check_autoscroll']) && $settings['MGGS_check_autoscroll'] == 1) {
                 $clmn_clss = ' auto';
             }
             $output = '';
@@ -169,7 +172,7 @@ if (get_option('slide_data')['MGGS_check_gutenberg'] == 1) {
     function MGGS_my_gallery_output($output, $attr)
     {
         $post = get_post();
-
+        $settings = get_option('slide_data');
         static $instance = 0;
         $instance++;
 
@@ -288,37 +291,37 @@ if (get_option('slide_data')['MGGS_check_gutenberg'] == 1) {
         $selector = "gallery-{$instance}";
 
         $gallery_style = '';
-        if (get_option('slide_data')['MGGS_select_columns']) {
-            $clmn = get_option('slide_data')['MGGS_select_columns'];
+        if (isset($settings['MGGS_select_columns']) && !empty($settings['MGGS_select_columns'])) {
+            $clmn = $settings['MGGS_select_columns'];
         } else {
             $clmn = 1;
         }
-        if (get_option('slide_data')['MGGS_nmb_autospeed'])
-            $atps = get_option('slide_data')['MGGS_nmb_autospeed'];
+        if (isset($settings['MGGS_nmb_autospeed']) && !empty($settings['MGGS_nmb_autospeed']))
+            $atps = $settings['MGGS_nmb_autospeed'];
         else
             $atps = 3000;
         if ($atts['columns'] == $clmn) {
             $clmn_clss = '';
-            if (get_option('slide_data')['MGGS_check_autoscroll'] == 1) {
+            if (isset($settings['MGGS_check_autoscroll']) && $settings['MGGS_check_autoscroll'] == 1) {
                 $clmn_clss = ' auto';
             }
-            if (get_option('slide_data')['MGGS_check_thumbnails'] == 1)
+            if (isset($settings['MGGS_check_thumbnails']) && $settings['MGGS_check_thumbnails'] == 1)
                 $thumb = ' thumb';
             else
                 $thumb = '';
-            if (get_option('slide_data')['MGGS_nmb_thumbnails'])
-                $thumbs = get_option('slide_data')['MGGS_nmb_thumbnails'];
+            if (isset($settings['MGGS_nmb_thumbnails']) && !empty($settings['MGGS_nmb_thumbnails']))
+                $thumbs = $settings['MGGS_nmb_thumbnails'];
             else
                 $thumbs = 5;
             $mar = '';
             if ($thumb == ' thumb')
                 $mar = ' t-mar';
-            if (get_option('slide_data')['MGGS_nmb_t_thumbnails'])
-                $t_thumbs = get_option('slide_data')['MGGS_nmb_t_thumbnails'];
+            if (isset($settings['MGGS_nmb_t_thumbnails']) && !empty($settings['MGGS_nmb_t_thumbnails']))
+                $t_thumbs = $settings['MGGS_nmb_t_thumbnails'];
             else
                 $t_thumbs = 4;
-            if (get_option('slide_data')['MGGS_nmb_m_thumbnails'])
-                $m_thumbs = get_option('slide_data')['MGGS_nmb_m_thumbnails'];
+            if (isset($settings['MGGS_nmb_m_thumbnails']) && !empty($settings['MGGS_nmb_m_thumbnails']))
+                $m_thumbs = $settings['MGGS_nmb_m_thumbnails'];
             else
                 $m_thumbs = 3;
             $size_class  = sanitize_html_class(is_array($atts['size']) ? implode('x', $atts['size']) : $atts['size']);
